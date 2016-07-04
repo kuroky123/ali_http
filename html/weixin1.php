@@ -71,6 +71,7 @@ class wechatCallbackapiTest
         {
             case "pay":
                 $contentStr=$this->MysqlMsg_ios();
+                $resultStr = $this->transmitText($object, $contentStr, $funcFlag);
                 break;
             case "news":
                 $arr_item=array("Title"=>"TestTitle","Description"=>"TestDescription","PicUrl"=>"http://img5.imgtn.bdimg.com/it/u=1564181002,2731864085&fm=21&gp=0.jpg","Url"=>"115.28.194.142/index.html");
@@ -78,9 +79,10 @@ class wechatCallbackapiTest
                 break;
             default:
                 $contentStr = "你发送的内容为：".$object->Content;
+                $resultStr = $this->transmitText($object, $contentStr, $funcFlag);
                 break;
         }
-        $resultStr = $this->transmitText($object, $contentStr, $funcFlag);
+        
         return $resultStr;
     }
     
@@ -149,7 +151,7 @@ class wechatCallbackapiTest
         //<Content><![CDATA[]]></Content>
         //<FuncFlag>%s</FuncFlag>
         //$resultStr = sprintf($newsTpl,  $object->ToUserName,$object->FromUserName, time(), count($arr_item), $funcFlag);
-        $resultStr = sprintf($newsTpl,  $object->ToUserName,$object->FromUserName, time(), count($arr_item));
+        $resultStr = sprintf($newsTpl,$object->ToUserName,$object->FromUserName, time(), count($arr_item));
         return $resultStr;
     }
 
