@@ -153,10 +153,7 @@ class wechatCallbackapiTest
 
     public function MysqlMsg_ios()
     {
-        $mysql_server_name = "115.28.194.142";
-        $mysql_username    = "root";
-        $mysql_password    = "19930414";
-        $mysql_database    = "test";
+        require_once 'mysql_config.php';
         $sql1= "select * from 301_revenue where query_type=1 order by query_time desc limit 1";
         $sql2="select * from 301_revenue where query_type=2 order by query_time desc limit 1";
         $conn = mysql_connect($mysql_server_name,$mysql_username,$mysql_password);
