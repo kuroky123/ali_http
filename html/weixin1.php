@@ -135,7 +135,8 @@ class wechatCallbackapiTest
         <Description><![CDATA[%s]]></Description>
         <PicUrl><![CDATA[%s]]></PicUrl>
         <Url><![CDATA[%s]]></Url>
-        </item>";
+        </item>
+        ";
         $item_str = "";
         foreach ($arr_item as $item)
             $item_str .= sprintf($itemTpl, $item['Title'], $item['Description'], $item['PicUrl'], $item['Url']);
