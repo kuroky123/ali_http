@@ -152,7 +152,7 @@ class wechatCallbackapiTest
         //<Content><![CDATA[]]></Content>
         //<FuncFlag>%s</FuncFlag>
         //$resultStr = sprintf($newsTpl,  $object->ToUserName,$object->FromUserName, time(), count($arr_item), $funcFlag);
-        $resultStr = sprintf($newsTpl,$object->ToUserName,$object->FromUserName, time(), count($arr_item));
+        $resultStr = sprintf($newsTpl,$object->FromUserName,$object->ToUserName, time(), count($arr_item));
         return $resultStr;
     }
 
