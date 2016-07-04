@@ -72,6 +72,10 @@ class wechatCallbackapiTest
             case "pay":
                 $contentStr=$this->MysqlMsg_ios();
                 break;
+            case "news":
+                $arr_item=array("Title"=>"TestTitle","Description"=>"TestDescription","PicUrl"=>"http://img5.imgtn.bdimg.com/it/u=1564181002,2731864085&fm=21&gp=0.jpg","Url"=>"115.28.194.142/index.html");
+                $contentStr = $this -> transmitNews($object, $arr_item);
+                break;
             default:
                 $contentStr = "你发送的内容为：".$object->Content;
                 break;
@@ -118,36 +122,34 @@ class wechatCallbackapiTest
         return $resultStr;
     }
 
-    private function transmitNews($object, $arr_item, $funcFlag = 0)
+    //private function transmitNews($object, $arr_item, $funcFlag = 0)
+    private function transmitNews($object, $arr_item)
     {
         //首条标题28字，其他标题39字
         if(!is_array($arr_item))
             return;
-
-        $itemTpl = "    <item>
+        $itemTpl = "<item>
         <Title><![CDATA[%s]]></Title>
         <Description><![CDATA[%s]]></Description>
         <PicUrl><![CDATA[%s]]></PicUrl>
         <Url><![CDATA[%s]]></Url>
-    </item>
-";
+        </item>";
         $item_str = "";
         foreach ($arr_item as $item)
             $item_str .= sprintf($itemTpl, $item['Title'], $item['Description'], $item['PicUrl'], $item['Url']);
-
         $newsTpl = "<xml>
         <ToUserName><![CDATA[%s]]></ToUserName>
         <FromUserName><![CDATA[%s]]></FromUserName>
         <CreateTime>%s</CreateTime>
         <MsgType><![CDATA[news]]></MsgType>
-        <Content><![CDATA[]]></Content>
         <ArticleCount>%s</ArticleCount>
         <Articles>
-        $item_str</Articles>
-        <FuncFlag>%s</FuncFlag>
+        $item_str</Articles>   
         </xml>";
-
-        $resultStr = sprintf($newsTpl, $object->FromUserName, $object->ToUserName, time(), count($arr_item), $funcFlag);
+        //<Content><![CDATA[]]></Content>
+        //<FuncFlag>%s</FuncFlag>
+        //$resultStr = sprintf($newsTpl,  $object->ToUserName,$object->FromUserName, time(), count($arr_item), $funcFlag);
+        $resultStr = sprintf($newsTpl,  $object->ToUserName,$object->FromUserName, time(), count($arr_item));
         return $resultStr;
     }
 
