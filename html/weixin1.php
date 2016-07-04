@@ -75,7 +75,7 @@ class wechatCallbackapiTest
                 break;
             case "news":
                 $arr_item=array("Title"=>"TestTitle","Description"=>"TestDescription","PicUrl"=>"http://img5.imgtn.bdimg.com/it/u=1564181002,2731864085&fm=21&gp=0.jpg","Url"=>"115.28.194.142/index.html");
-                $contentStr = $this -> transmitNews($object, $arr_item);
+                $resultStr = $this -> transmitNews($object, $arr_item);
                 break;
             default:
                 $contentStr = "你发送的内容为：".$object->Content;
