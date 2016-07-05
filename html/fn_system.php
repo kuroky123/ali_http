@@ -1,6 +1,6 @@
 <?php  
   
-if(emptyempty($_SESSION['user'])){  
+if(empty($_SESSION['user'])){  
       
     header("Location:http://115.28.194.142/fn_wx_login.php");  
 }else{  
