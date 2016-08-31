@@ -77,6 +77,10 @@ class wechatCallbackapiTest
                 $arr_item=array(array("Title"=>"TestTitle","Description"=>"TestDescription","PicUrl"=>"http://img5.imgtn.bdimg.com/it/u=1564181002,2731864085&fm=21&gp=0.jpg","Url"=>"115.28.194.142/index.html"));
                 $resultStr = $this -> transmitNews($object, $arr_item);
                 break;
+	    case "test":
+		$contentStr = "你发送的内容为：".$object->MsgId;
+                $resultStr = $this->transmitText($object, $contentStr, $funcFlag);
+                break;
             default:
                 $contentStr = "你发送的内容为：".$object->Content;
                 $resultStr = $this->transmitText($object, $contentStr, $funcFlag);
@@ -161,14 +165,12 @@ class wechatCallbackapiTest
         require_once 'mysql_config.php';
         $sql1= "select * from 301_revenue where query_type=1 order by query_time desc limit 1";
         $sql2="select * from 301_revenue where query_type=2 order by query_time desc limit 1";
-        $conn = mysql_connect($mysql_server_name,$mysql_username,$mysql_password);
-        mysql_select_db($mysql_database,$conn);
-        $result1 = mysql_fetch_row(mysql_query($sql1));
-        $result2 = mysql_fetch_row(mysql_query($sql2));
+	$mysqli = mysqli_init();
+        $mysqli->real_connect($mysql_server_name,$mysql_username,$mysql_password,$mysql_database);
+        $result1 = mysqli_fetch_row($mysqli->query($sql1));
+        $result2 = mysqli_fetch_row($mysqli->query($sql2));
         $data1=explode(",",$result1[2]);
         $data2=explode(",",$result2[2]);
-        print_r($data1);
-        echo $data2[4];
         $total_today=0;
         $total_last=0;
         $total_today1=0;
