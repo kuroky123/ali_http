@@ -165,10 +165,10 @@ class wechatCallbackapiTest
         require_once 'mysql_config.php';
         $sql1= "select * from 301_revenue where query_type=1 order by query_time desc limit 1";
         $sql2="select * from 301_revenue where query_type=2 order by query_time desc limit 1";
-	$mysqli = mysqli_init();
-        $mysqli->real_connect($mysql_server_name,$mysql_username,$mysql_password,$mysql_database);
-        $result1 = mysqli_fetch_row($mysqli->query($sql1));
-        $result2 = mysqli_fetch_row($mysqli->query($sql2));
+        $con = mysql_connect($mysql_server_name,$mysql_username,$mysql_password);
+	$$db_selected = mysql_select_db($mysql_database,$con);
+        $result1 = mysql_fetch_row(mysql_query($sql1,$con));
+        $result2 = mysql_fetch_row(mysql_query($sql2,$con));
         $data1=explode(",",$result1[2]);
         $data2=explode(",",$result2[2]);
         $total_today=0;
